@@ -12,4 +12,13 @@ RSpec.describe ShiftKey do
     expect(@shift_key1.shift_key).to be_a(String)
     expect(@shift_key2.shift_key).to eq("09562")
   end
+
+  it 'has four keys' do
+    result = {"A" => 9,
+              "B" => 95,
+              "C" => 56,
+              "D" => 62
+              }
+    expect(@shift_key2.four_keys).to eq(result)
+  end
 end
