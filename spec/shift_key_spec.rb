@@ -3,10 +3,13 @@ require 'pry'
 
 RSpec.describe ShiftKey do
   before(:each) do
-    @shift_key = ShiftKey.new
+    @shift_key1 = ShiftKey.new
+    @shift_key2 = ShiftKey.new("09562")
   end
 
   it 'exists and has attributes' do
-    expect(@shift_key).to be_a(ShiftKey)
+    expect(@shift_key1).to be_a(ShiftKey)
+    expect(@shift_key1.shift_key).to be_a(String)
+    expect(@shift_key2.shift_key).to eq("09562")
   end
 end
