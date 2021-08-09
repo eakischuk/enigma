@@ -58,6 +58,23 @@ RSpec.describe Cipher do
     expect(@cipher.encrypted_hash).to eq(result)
   end
 
+  it 'uses single array to add to string' do
+    string = ""
+    arr1 = @cipher.encrypted_hash["A"]
+    @cipher.arr_to_string(string, arr1)
+    expect(string).to eq("b")
+  end
+
+  it 'uses multiple arrays to return string' do
+    string = ""
+    arr1 = @cipher.encrypted_hash["A"]
+    arr2 = @cipher.encrypted_hash["B"]
+    arr3 = @cipher.encrypted_hash["C"]
+    arr4 = @cipher.encrypted_hash["D"]
+    @cipher.arrays_to_string(string, arr1, arr2, arr3, arr4)
+    expect(string).to eq("byzl")
+  end
+
   it 'has encrypted message' do
     result = "byzlkxaazb."
     expect(@cipher.encrypted_message).to eq(result)
