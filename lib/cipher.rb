@@ -4,10 +4,10 @@ require 'shift_offset'
 class Cipher
   attr_reader :key, :offset, :range
 
-  def initialize(message, key, offset)
+  def initialize(message, key, date)
     @message = message
-    @key = key
-    @offset = offset
+    @key = ShiftKey.new(key)
+    @offset = ShiftOffset.new(date)
     @range = ("a".."z").to_a << " "
   end
 
