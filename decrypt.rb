@@ -1,4 +1,5 @@
 require './lib/enigma'
+
 enigma = Enigma.new
 cyphertext = File.read(ARGV[0])
 new_file = File.open(ARGV[1], "w")

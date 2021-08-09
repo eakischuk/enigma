@@ -1,5 +1,5 @@
 require './lib/enigma'
-require 'pry'
+
 enigma = Enigma.new
 message = File.read(ARGV[0])
 new_file = File.open(ARGV[1], "w")
