@@ -66,6 +66,21 @@ class Cipher
     encrypted
   end
 
+  def arr_to_string(str, arr)
+    if !arr.empty?
+      str << arr[0][-1]
+      arr.shift
+    end
+  end
+
+  def arrays_to_string(str, arr1, arr2, arr3, arr4)
+    string = str
+    arr_to_string(string, arr1)
+    arr_to_string(string, arr2)
+    arr_to_string(string, arr3)
+    arr_to_string(string, arr4)
+  end
+
   def encrypted_message
     string = ""
     arr1 = encrypted_hash["A"]
@@ -73,22 +88,7 @@ class Cipher
     arr3 = encrypted_hash["C"]
     arr4 = encrypted_hash["D"]
     until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
-      if !arr1.empty?
-        string << arr1[0][-1]
-        arr1.shift
-      end
-      if !arr2.empty?
-        string << arr2[0][-1]
-        arr2.shift
-      end
-      if !arr3.empty?
-        string << arr3[0][-1]
-        arr3.shift
-      end
-      if !arr4.empty?
-        string << arr4[0][-1]
-        arr4.shift
-      end
+      arrays_to_string(string, arr1, arr2, arr3, arr4)
     end
     string
   end
