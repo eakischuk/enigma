@@ -1,6 +1,4 @@
-require './cipher'
-require './enigma'
-require 'pry'
+require 'spec_helper'
 
 RSpec.describe Enigma do
   before(:each) do

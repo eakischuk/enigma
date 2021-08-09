@@ -1,5 +1,4 @@
-require '/shift_key'
-require 'pry'
+require 'spec_helper'
 
 RSpec.describe ShiftKey do
   before(:each) do

@@ -1,6 +1,4 @@
-require './shift_offset'
-require 'date'
-require 'pry'
+require 'spec_helper'
 
 RSpec.describe ShiftOffset do
   before(:each) do

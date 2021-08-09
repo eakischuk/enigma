@@ -1,7 +1,4 @@
-require './cipher'
-require './shift_key'
-require './shift_offset'
-require 'pry'
+require 'spec_helper'
 
 RSpec.describe Cipher do
   before(:each) do
