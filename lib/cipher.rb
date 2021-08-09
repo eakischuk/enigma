@@ -1,5 +1,5 @@
-require 'shift_key'
-require 'shift_offset'
+require './lib/shift_key'
+require './lib/shift_offset'
 
 class Cipher
   attr_reader :key, :offset, :range
@@ -111,7 +111,7 @@ class Cipher
     until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
       arrays_to_string(string, arr1, arr2, arr3, arr4)
     end
-    string
+    info = {encryption: string, key: @key.shift_key, date: @offset.date}
   end
 
   def decrypted_message
@@ -123,6 +123,6 @@ class Cipher
     until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
       arrays_to_string(string, arr1, arr2, arr3, arr4)
     end
-    string
+    info = {decryption: string, key: @key.shift_key, date: @offset.date}
   end
 end
