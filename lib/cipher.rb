@@ -47,11 +47,24 @@ class Cipher
     end
   end
 
+  def letter_index(letter)
+    @range.find_index(letter)
+  end
+
   def shift(group, letter_array)
     letter_array.map do |letter|
       if @range.include?(letter)
-        new_index = (@range.find_index(letter) + shifts[group]) % 27
-        letter = @range[new_index]
+        letter = @range[(letter_index(letter) + shifts[group]) % 27]
+      else
+        letter
+      end
+    end
+  end
+
+  def unshift(group, letter_array)
+    letter_array.map do |letter|
+      if @range.include?(letter)
+        letter = @range[(letter_index(letter) - shifts[group]) % 27]
       else
         letter
       end
@@ -64,6 +77,14 @@ class Cipher
       encrypted[group] = shift(group, letters)
     end
     encrypted
+  end
+
+  def decrypted_hash
+    decrypted = Hash.new {|hash, key| hash[key] = []}
+    normalized_hash.each_pair do |group, letters|
+      decrypted[group] = unshift(group, letters)
+    end
+    decrypted
   end
 
   def arr_to_string(str, arr)
@@ -87,6 +108,18 @@ class Cipher
     arr2 = encrypted_hash["B"]
     arr3 = encrypted_hash["C"]
     arr4 = encrypted_hash["D"]
+    until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
+      arrays_to_string(string, arr1, arr2, arr3, arr4)
+    end
+    string
+  end
+
+  def decrypted_message
+    string = ""
+    arr1 = decrypted_hash["A"]
+    arr2 = decrypted_hash["B"]
+    arr3 = decrypted_hash["C"]
+    arr4 = decrypted_hash["D"]
     until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
       arrays_to_string(string, arr1, arr2, arr3, arr4)
     end
