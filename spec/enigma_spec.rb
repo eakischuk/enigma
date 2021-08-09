@@ -12,10 +12,12 @@ RSpec.describe Enigma do
   end
 
   it 'can encrypt' do
-    expect(@enigma.encrypt("PARTY TIME!", "12345", "111111")).to eq("byzlkxaazb!")
+    result = {encryption: "byzlkxaazb!", key: "12345", date: "111111"}
+    expect(@enigma.encrypt("PARTY TIME!", "12345", "111111")).to eq(result)
   end
 
   it 'can decrypt' do
-    expect(@enigma.decrypt("byzlkxaazb!", "12345", "111111")).to eq("party time!")
+    result = {decryption: "party time!", key: "12345", date: "111111"}
+    expect(@enigma.decrypt("byzlkxaazb!", "12345", "111111")).to eq(result)
   end
 end
