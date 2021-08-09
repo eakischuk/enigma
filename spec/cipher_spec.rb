@@ -8,12 +8,21 @@ RSpec.describe Cipher do
     @shift_key = ShiftKey.new("12345")
     @shift_offset = ShiftOffset.new("111111")
     @cipher = Cipher.new("Party time.", @shift_key, @shift_offset)
+    @decipher = Cipher.new("byzlkxaazb.", @shift_key, @shift_offset)
   end
 
   it 'exists and has attributes' do
     expect(@cipher).to be_a(Cipher)
     expect(@cipher.key).to eq(@shift_key)
     expect(@cipher.offset).to eq(@shift_offset)
+    result = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+              "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+              "y", "z", " "]
+    expect(@cipher.range).to eq(result)
+  end
+
+  it 'has letter index within range' do
+    expect(@cipher.letter_index("f")).to eq(5)
   end
 
   it 'has shifts' do
@@ -50,12 +59,25 @@ RSpec.describe Cipher do
     expect(@cipher.shift("A", letters)).to eq(["b", "k", "z"])
   end
 
+  it 'can unshift' do
+    letters = ["b", "k", "z"]
+    expect(@cipher.unshift("A", letters)).to eq(["p", "y", "m"])
+  end
+
   it 'has encrypted hash' do
     result = {"A" => ["b", "k", "z"],
               "B" => ["y", "x", "b"],
               "C" => ["z", "a", "."],
               "D" => ["l", "a"]}
     expect(@cipher.encrypted_hash).to eq(result)
+  end
+
+  it 'has decrypted hash' do
+    result = {"A" => ["p", "y", "m"],
+              "B" => ["a", " ", "e"],
+              "C" => ["r", "t", "."],
+              "D" => ["t", "i"]}
+    expect(@decipher.decrypted_hash).to eq(result)
   end
 
   it 'uses single array to add to string' do
@@ -78,5 +100,10 @@ RSpec.describe Cipher do
   it 'has encrypted message' do
     result = "byzlkxaazb."
     expect(@cipher.encrypted_message).to eq(result)
+  end
+
+  it 'has decrypted message' do
+    result = "party time."
+    expect(@decipher.decrypted_message).to eq(result)
   end
 end
