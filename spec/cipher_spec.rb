@@ -5,16 +5,16 @@ require 'pry'
 
 RSpec.describe Cipher do
   before(:each) do
-    @shift_key = ShiftKey.new("12345")
-    @shift_offset = ShiftOffset.new("111111")
+    @shift_key = "12345"
+    @shift_offset = "111111"
     @cipher = Cipher.new("Party time.", @shift_key, @shift_offset)
     @decipher = Cipher.new("byzlkxaazb.", @shift_key, @shift_offset)
   end
 
   it 'exists and has attributes' do
     expect(@cipher).to be_a(Cipher)
-    expect(@cipher.key).to eq(@shift_key)
-    expect(@cipher.offset).to eq(@shift_offset)
+    expect(@cipher.key).to be_a(ShiftKey)
+    expect(@cipher.offset).to be_a(ShiftOffset)
     result = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
               "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
               "y", "z", " "]
