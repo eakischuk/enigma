@@ -98,12 +98,12 @@ RSpec.describe Cipher do
   end
 
   it 'has encrypted message' do
-    result = "byzlkxaazb."
+    result = {encryption: "byzlkxaazb.", key: "12345", date: "111111"}
     expect(@cipher.encrypted_message).to eq(result)
   end
 
   it 'has decrypted message' do
-    result = "party time."
+    result = {decryption: "party time.", key: "12345", date: "111111"}
     expect(@decipher.decrypted_message).to eq(result)
   end
 end
