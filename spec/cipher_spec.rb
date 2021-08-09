@@ -5,9 +5,9 @@ require 'pry'
 
 RSpec.describe Cipher do
   before(:each) do
-    @shift_key = ShiftKey.new("09218")
-    @shift_offset = ShiftOffset.new("080721")
-    @cipher = Cipher.new("The stoned ape hypothesis.", @shift_key, @shift_offset)
+    @shift_key = ShiftKey.new("12345")
+    @shift_offset = ShiftOffset.new("111111")
+    @cipher = Cipher.new("Party time.", @shift_key, @shift_offset)
   end
 
   it 'exists and has attributes' do
@@ -17,23 +17,49 @@ RSpec.describe Cipher do
   end
 
   it 'has shifts' do
-    result = {"A" => 9,
-              "B" => 99,
-              "C" => 23,
-              "D" => 19}
+    result = {"A" => 13,
+              "B" => 24,
+              "C" => 35,
+              "D" => 46}
     expect(@cipher.shifts).to eq(result)
   end
 
   it 'splits message into four arrays' do
-    result = ["t", "h", "e", " ", "s", "t", "o", "n", "e", "d", " ", "a", "p", "e", " ", "h", "y", "p", "o", "t", "h", "e", "s", "i", "s", "."]
+    result = ["p", "a", "r", "t", "y", " ", "t", "i", "m", "e", "."]
     expect(@cipher.split_message).to eq(result)
   end
 
   it 'has message hash' do
-    result = {"A" => ["t", "s", "e", "p", "y", "h", "s"],
-      "B" => ["h", "t", "d", "e", "p", "e", "."],
-      "C" => ["e", "o", " ", " ", "o", "s", nil],
-      "D" => [" ", "n", "a", "h", "t", "i", nil]}
+    result = {"A" => ["p", "y", "m"],
+              "B" => ["a", " ", "e"],
+              "C" => ["r", "t", "."],
+              "D" => ["t", "i", nil]}
     expect(@cipher.message_hash).to eq(result)
+  end
+
+  it 'has normalized hash' do
+    result = {"A" => ["p", "y", "m"],
+              "B" => ["a", " ", "e"],
+              "C" => ["r", "t", "."],
+              "D" => ["t", "i"]}
+    expect(@cipher.normalized_hash).to eq(result)
+  end
+
+  it 'can shift' do
+    letters = ["p", "y", "m"]
+    expect(@cipher.shift("A", letters)).to eq(["b", "k", "z"])
+  end
+
+  it 'has encrypted hash' do
+    result = {"A" => ["b", "k", "z"],
+              "B" => ["y", "x", "b"],
+              "C" => ["z", "a", "."],
+              "D" => ["l", "a"]}
+    expect(@cipher.encrypted_hash).to eq(result)
+  end
+
+  it 'has encrypted message' do
+    result = "byzlkxaazb."
+    expect(@cipher.encrypted_message).to eq(result)
   end
 end
