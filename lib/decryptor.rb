@@ -11,7 +11,8 @@ class Decryptor
   def unshift(group, letter_array)
     letter_array.map do |letter|
       if @range.include?(letter)
-        letter = @range[(letter_index(letter) - shifts[group]) % 27]
+        new_index = (letter_index(@range, letter) - shifts(@range, @key, @date)[group]) % 27
+        letter = @range[new_index]
       else
         letter
       end
@@ -20,7 +21,7 @@ class Decryptor
 
   def decrypted_hash
     decrypted = Hash.new {|hash, key| hash[key] = []}
-    normalized_hash.each_pair do |group, letters|
+    normalized_hash(@message).each_pair do |group, letters|
       decrypted[group] = unshift(group, letters)
     end
     decrypted
@@ -35,6 +36,6 @@ class Decryptor
     until arr1.empty? && arr2.empty? && arr3.empty? && arr4.empty?
       arrays_to_string(string, arr1, arr2, arr3, arr4)
     end
-    info = {decryption: string, key: @key.shift_key, date: @offset.date}
+    info = {decryption: string, key: @key.shift_key, date: @date.date}
   end
 end
