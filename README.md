@@ -19,4 +19,5 @@
     - Most methods are broken into helpers with helpers explicitly tested
     - Tests were written prior to methods and informed the code
 * ### Version Control
+  - 50 commits
   - Used branching for extensive refactor of classes to protect functionality
