@@ -6,58 +6,58 @@ RSpec.describe Cipherable do
     @range = ("a".."z").to_a << " "
     @shift_key = ShiftKey.new("12345")
     @shift_offset = ShiftOffset.new("111111")
-    @message = "Party time!"
+    @message = "Party time."
   end
 
-  xit 'has letter index within range' do
-    expect(@cipher.letter_index("f")).to eq(5)
+  it 'has letter index within range' do
+    expect(letter_index(@range, "f")).to eq(5)
   end
 
-  xit 'has shifts' do
+  it 'has shifts' do
     result = {"A" => 13,
               "B" => 24,
               "C" => 35,
               "D" => 46}
-    expect(@cipher.shifts).to eq(result)
+    expect(shifts(@range, @shift_key, @shift_offset)).to eq(result)
   end
 
-  xit 'splits message into four arrays' do
+  it 'splits message into four arrays' do
     result = ["p", "a", "r", "t", "y", " ", "t", "i", "m", "e", "."]
-    expect(@cipher.split_message).to eq(result)
+    expect(split_message(@message)).to eq(result)
   end
 
-  xit 'has message hash' do
+  it 'has message hash' do
     result = {"A" => ["p", "y", "m"],
               "B" => ["a", " ", "e"],
               "C" => ["r", "t", "."],
               "D" => ["t", "i", nil]}
-    expect(@cipher.message_hash).to eq(result)
+    expect(message_hash(@message)).to eq(result)
   end
 
-  xit 'has normalized hash' do
+  it 'has normalized hash' do
     result = {"A" => ["p", "y", "m"],
               "B" => ["a", " ", "e"],
               "C" => ["r", "t", "."],
               "D" => ["t", "i"]}
-    expect(@cipher.normalized_hash).to eq(result)
+    expect(normalized_hash(@message)).to eq(result)
   end
 
 
-  xit 'uses single array to add to string' do
+  it 'uses single array to add to string' do
     string = ""
-    arr1 = @cipher.encrypted_hash["A"]
-    @cipher.arr_to_string(string, arr1)
-    expect(string).to eq("b")
+    arr1 = message_hash(@message)["A"]
+    arr_to_string(string, arr1)
+    expect(string).to eq("p")
   end
 
-  xit 'uses multiple arrays to return string' do
+  it 'uses multiple arrays to return string' do
     string = ""
-    arr1 = @cipher.encrypted_hash["A"]
-    arr2 = @cipher.encrypted_hash["B"]
-    arr3 = @cipher.encrypted_hash["C"]
-    arr4 = @cipher.encrypted_hash["D"]
-    @cipher.arrays_to_string(string, arr1, arr2, arr3, arr4)
-    expect(string).to eq("byzl")
+    arr1 = message_hash(@message)["A"]
+    arr2 = message_hash(@message)["B"]
+    arr3 = message_hash(@message)["C"]
+    arr4 = message_hash(@message)["D"]
+    arrays_to_string(string, arr1, arr2, arr3, arr4)
+    expect(string).to eq("part")
   end
 end
 
