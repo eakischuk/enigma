@@ -1,4 +1,4 @@
-require './lib/enigma'
+require './spec/spec_helper'
 
 enigma = Enigma.new
 message = File.read(ARGV[0])

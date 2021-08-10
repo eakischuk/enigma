@@ -60,39 +60,3 @@ RSpec.describe Cipherable do
     expect(string).to eq("part")
   end
 end
-
-# xit 'can shift' do
-#   letters = ["p", "y", "m"]
-#   expect(@cipher.shift("A", letters)).to eq(["b", "k", "z"])
-# end
-#
-# it 'can unshift' do
-#   letters = ["b", "k", "z"]
-#   expect(@cipher.unshift("A", letters)).to eq(["p", "y", "m"])
-# end
-
-# it 'has encrypted message' do
-#   result = {encryption: "byzlkxaazb.", key: "12345", date: "111111"}
-#   expect(@cipher.encrypted_message).to eq(result)
-# end
-#
-# it 'has decrypted message' do
-#   result = {decryption: "party time.", key: "12345", date: "111111"}
-#   expect(@decipher.decrypted_message).to eq(result)
-# end
-#
-# it 'has encrypted hash' do
-#   result = {"A" => ["b", "k", "z"],
-#             "B" => ["y", "x", "b"],
-#             "C" => ["z", "a", "."],
-#             "D" => ["l", "a"]}
-#   expect(@cipher.encrypted_hash).to eq(result)
-# end
-#
-# it 'has decrypted hash' do
-#   result = {"A" => ["p", "y", "m"],
-#             "B" => ["a", " ", "e"],
-#             "C" => ["r", "t", "."],
-#             "D" => ["t", "i"]}
-#   expect(@decipher.decrypted_hash).to eq(result)
-# end
