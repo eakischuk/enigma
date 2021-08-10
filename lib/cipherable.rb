@@ -2,6 +2,10 @@ require './lib/shift_key'
 require './lib/shift_offset'
 
 module Cipherable
+  def letter_index(range, letter)
+    range.find_index(letter)
+  end
+
   def shifts(range, shift_key, shift_offset)
     shift = {}
     shift_key.four_keys.keys.each do |key|
@@ -10,12 +14,12 @@ module Cipherable
     shift
   end
 
-  def split_message
-    @message.downcase.split(//)
+  def split_message(message)
+    message.downcase.split(//)
   end
 
-  def message_hash
-    split = split_message
+  def message_hash(message)
+    split = split_message(message)
     message = Hash.new {|hash, key| hash[key] = []}
     until split.empty?
       message["A"] << split[0]
@@ -30,38 +34,13 @@ module Cipherable
     message
   end
 
-  def normalized_hash
-    message_hash.transform_values do |value|
+  def normalized_hash(message)
+    message_hash(message).transform_values do |value|
       value.delete_if do |letter|
         letter == nil
       end
     end
   end
-
-  def letter_index(letter)
-    @range.find_index(letter)
-  end
-
-  def shift(group, letter_array)
-    letter_array.map do |letter|
-      if @range.include?(letter)
-        letter = @range[(letter_index(letter) + shifts[group]) % 27]
-      else
-        letter
-      end
-    end
-  end
-
-  def unshift(group, letter_array)
-    letter_array.map do |letter|
-      if @range.include?(letter)
-        letter = @range[(letter_index(letter) - shifts[group]) % 27]
-      else
-        letter
-      end
-    end
-  end
-
 
   def arr_to_string(str, arr)
     if !arr.empty?
