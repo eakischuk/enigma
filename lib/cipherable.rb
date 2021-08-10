@@ -1,5 +1,4 @@
-require './lib/shift_key'
-require './lib/shift_offset'
+require 'spec_helper'
 
 module Cipherable
   def letter_index(range, letter)
