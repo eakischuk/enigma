@@ -1,8 +1,10 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 
 require './lib/shift_key'
 require './lib/shift_offset'
-require './lib/cipher'
+require './lib/cipherable'
 require './lib/enigma'
 require 'date'
+require './lib/encryptor'
+require './lib/decryptor'
